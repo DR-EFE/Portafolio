@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developer Portfolio</title>
+    
+    <!-- Google Fonts: Inter (Sans) & Fira Code (Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: 'rgb(var(--background) / <alpha-value>)',
+              surface: 'rgb(var(--surface) / <alpha-value>)',
+              card: 'rgb(var(--card) / <alpha-value>)',
+              primary: 'rgb(var(--primary) / <alpha-value>)',
+              'primary-dim': 'rgb(var(--primary) / 0.1)',
+              secondary: 'rgb(var(--secondary) / <alpha-value>)',
+              text: 'rgb(var(--text) / <alpha-value>)',
+              muted: 'rgb(var(--muted) / <alpha-value>)',
+              border: 'rgb(var(--border) / <alpha-value>)',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['Fira Code', 'monospace'],
+            },
+            animation: {
+              'spin-slow': 'spin 10s linear infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        /* Light Mode Variables */
+        --background: 245 245 247;
+        --surface: 255 255 255;
+        --card: 255 255 255;
+        --primary: 0 160 180; /* Darker Cyan for visibility on white */
+        --secondary: 112 0 255;
+        --text: 23 23 23;
+        --muted: 100 116 139;
+        --border: 226 232 240;
+      }
+
+      .dark {
+        /* Dark Mode Variables */
+        --background: 5 5 5;
+        --surface: 10 10 10;
+        --card: 17 17 17;
+        --primary: 0 243 255; /* Neon Cyan */
+        --secondary: 112 0 255;
+        --text: 224 224 224;
+        --muted: 133 133 133;
+        --border: 255 255 255;
+      }
+
+      body {
+        background-color: rgb(var(--background));
+        color: rgb(var(--text));
+        overflow-x: hidden;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgb(var(--background));
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgb(var(--muted) / 0.2);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgb(var(--primary));
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25",
+    "@react-three/drei": "https://aistudiocdn.com/@react-three/drei@^10.7.7",
+    "@react-three/fiber": "https://aistudiocdn.com/@react-three/fiber@^9.4.2",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
