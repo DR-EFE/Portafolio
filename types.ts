@@ -69,3 +69,8 @@ export interface Service {
   title: string;
   description: string;
 }
+
+export interface Technology {
+  name: string;
+  icon: string;
+}

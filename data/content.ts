@@ -1,5 +1,5 @@
 
-import { NavLink, Project, HeroContent, AboutContent, TimelineItem, Certificate, Skill, Service } from '../types';
+import { NavLink, Project, HeroContent, AboutContent, TimelineItem, Certificate, Skill, Service, Technology } from '../types';
 
 export const navLinks: NavLink[] = [
   { id: 'home', label: 'Home' },
@@ -9,6 +9,7 @@ export const navLinks: NavLink[] = [
   { id: 'skill', label: 'Skills' },
   { id: 'service', label: 'Services' },
   { id: 'portfolio', label: 'Portfolio' },
+  { id: 'technologies', label: 'Technologies' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -162,4 +163,17 @@ export const projects: Project[] = [
     link: "#",
     github: "#"
   }
+];
+
+export const technologies: Technology[] = [
+  { name: 'Windows', icon: 'fab fa-windows' },
+  { name: 'Visual Studio Code', icon: 'fas fa-code' },
+  { name: 'Git & GitHub', icon: 'fab fa-github' },
+  { name: 'Android Studio', icon: 'fab fa-android' },
+  { name: 'IntelliJ IDEA', icon: 'fas fa-lightbulb' },
+  { name: 'Figma', icon: 'fab fa-figma' },
+  { name: 'Trello', icon: 'fab fa-trello' },
+  { name: 'Docker', icon: 'fab fa-docker' },
+  { name: 'Postman', icon: 'fas fa-rocket' },
+  { name: 'Azure', icon: 'fab fa-microsoft' },
 ];

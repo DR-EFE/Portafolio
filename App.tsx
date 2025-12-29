@@ -12,6 +12,7 @@ import Certificates from './sections/Certificates';
 import Skills from './sections/Skills';
 import Services from './sections/Services';
 import Portfolio from './sections/Portfolio';
+import Technologies from './sections/Technologies';
 import Contact from './sections/Contact';
 import { useScrollSpy } from './hooks/useScrollSpy';
 import { navLinks } from './data/content';
@@ -80,6 +81,7 @@ const App = () => {
         <Services />
         <Portfolio />
         <Blog />
+        <Technologies />
         <Contact />
       </main>
       
