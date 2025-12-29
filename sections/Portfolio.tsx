@@ -54,7 +54,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ transformStyle: 'preserve-3d', transform }}
-        className="relative bg-card rounded-xl overflow-hidden border border-border/10 hover:border-primary/50 transition-colors group h-full flex flex-col shadow-xl dark:shadow-none"
+        className="relative bg-card rounded-xl overflow-hidden border border-border/50 hover:border-primary/50 transition-colors group h-full flex flex-col shadow-premium hover:shadow-premium-hover"
       >
         {/* Glow Effect */}
         <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none" />
@@ -69,11 +69,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             />
             
             {/* Overlay Links */}
-            <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-black/60 backdrop-blur-sm">
-                <a href={project.github} className="p-3 bg-surface rounded-full hover:bg-primary hover:text-black text-white transition-all transform hover:scale-110">
+            <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-background/80 backdrop-blur-sm">
+                <a href={project.github} className="p-3 bg-surface rounded-full hover:bg-primary text-text hover:text-white border border-border transition-all transform hover:scale-110 shadow-sm">
                     <Github className="w-5 h-5" />
                 </a>
-                <a href={project.link} className="p-3 bg-surface rounded-full hover:bg-primary hover:text-black text-white transition-all transform hover:scale-110">
+                <a href={project.link} className="p-3 bg-surface rounded-full hover:bg-primary text-text hover:text-white border border-border transition-all transform hover:scale-110 shadow-sm">
                     <ExternalLink className="w-5 h-5" />
                 </a>
             </div>

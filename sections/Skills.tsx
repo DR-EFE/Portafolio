@@ -34,8 +34,8 @@ const getColorHex = (twClass: string) => {
   if (twClass.includes('red')) return '#ef4444';
   if (twClass.includes('cyan')) return '#06b6d4';
   if (twClass.includes('green')) return '#22c55e';
-  if (twClass.includes('primary')) return '#00f3ff';
-  return '#00f3ff'; 
+  if (twClass.includes('primary')) return '#4f46e5';
+  return '#4f46e5'; 
 };
 
 // --- DATA FOR TOOLS CAROUSEL ---
@@ -80,7 +80,7 @@ const SkillHUD: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) =
           className="absolute inset-0 m-auto rounded-full border-2 border-t-transparent border-b-transparent border-black/5 dark:border-white/5 w-[85%] h-[85%]"
         />
         <svg 
-            className="absolute inset-0 w-full h-full transform -rotate-90 drop-shadow-[0_0_8px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]"
+            className="absolute inset-0 w-full h-full transform -rotate-90 filter dark:drop-shadow-[0_0_8px_rgba(129,140,248,0.2)]"
             viewBox="0 0 128 128"
         >
           <circle cx="64" cy="64" r={radius} fill="transparent" stroke="rgba(128,128,128,0.1)" strokeWidth="6" />
@@ -136,7 +136,7 @@ const ToolsCarousel = () => {
         `}
       </style>
 
-      <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] bg-black/5 dark:bg-white/5 border-y border-border/10 py-8">
+      <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] bg-surface border-y border-border/50 py-10 shadow-sm">
         <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
           {tools.map((tool, index) => (
             <li key={index} className="mx-8 group relative">

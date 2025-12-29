@@ -23,7 +23,7 @@ const About = () => {
            />
            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
            
-           <div className="absolute bottom-8 left-8 right-8 p-6 bg-surface/40 backdrop-blur-xl rounded-2xl border border-white/10">
+           <div className="absolute bottom-8 left-8 right-8 p-6 bg-surface/40 backdrop-blur-xl rounded-2xl border border-border/20 shadow-premium">
               <div className="flex items-center gap-4">
                 <div className="p-2 bg-primary/20 rounded-lg">
                   <ShieldCheck className="text-primary w-6 h-6" />
@@ -60,7 +60,7 @@ const About = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
           {aboutContent.highlights.map((item, index) => (
-              <div key={index} className="flex flex-col border-l-2 border-border/10 pl-4 hover:border-primary transition-colors py-2">
+              <div key={index} className="flex flex-col border-l-2 border-border/20 pl-4 hover:border-primary transition-colors py-2">
                   <span className="text-xs text-muted font-bold uppercase tracking-wider mb-1">{item.label}</span>
                   {item.href ? (
                        <a href={item.href} target="_blank" rel="noreferrer" className="text-text font-semibold hover:text-primary transition-colors flex items-center gap-2">
@@ -81,8 +81,8 @@ const About = () => {
                   className={`
                       px-8 py-4 rounded-xl font-bold flex items-center gap-3 transition-all text-sm
                       ${idx === 0 
-                          ? 'bg-primary text-black shadow-lg shadow-primary/20 hover:shadow-primary/40' 
-                          : 'bg-transparent border border-border/20 text-text hover:border-primary hover:text-primary'
+                          ? 'bg-primary text-white shadow-premium hover:shadow-premium-hover' 
+                          : 'bg-transparent border border-border text-text hover:border-primary hover:text-primary'
                       }
                   `}
               >

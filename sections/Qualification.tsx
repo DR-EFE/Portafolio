@@ -14,7 +14,7 @@ const TimelineBlock = ({ title, icon: Icon, items }: { title: string, icon: any,
             <h3 className="text-2xl font-bold text-text uppercase tracking-tight">{title}</h3>
         </div>
         
-        <div className="relative border-l border-border/10 ml-6 pl-10 py-2 space-y-16">
+        <div className="relative border-l border-border/30 ml-6 pl-10 py-2 space-y-16">
             {items.map((item, index) => (
                 <motion.div 
                     key={index} 
@@ -24,13 +24,13 @@ const TimelineBlock = ({ title, icon: Icon, items }: { title: string, icon: any,
                     transition={{ delay: index * 0.1 }}
                 >
                     {/* Indicador visual circular */}
-                    <div className="absolute -left-[51px] top-1.5 w-5 h-5 rounded-full bg-background border-2 border-primary group-hover:bg-primary transition-all duration-300 shadow-[0_0_10px_rgba(0,243,255,0.2)]" />
+                    <div className="absolute -left-[51px] top-1.5 w-5 h-5 rounded-full bg-background border-2 border-primary group-hover:bg-primary transition-all duration-300 shadow-sm" />
                     
                     <div className="flex flex-col">
                         <span className="text-[10px] font-mono text-primary mb-2 block uppercase tracking-widest">{item.period}</span>
                         <h4 className="text-xl font-bold text-text mb-1 group-hover:text-primary transition-colors">{item.title}</h4>
                         <span className="text-sm text-muted font-semibold mb-4">{item.place}</span>
-                        <p className="text-muted leading-relaxed text-sm max-w-md border-l-2 border-transparent group-hover:border-primary/20 pl-4 transition-all">
+                        <p className="text-muted/90 leading-relaxed text-sm max-w-md border-l-2 border-transparent group-hover:border-primary/20 pl-4 transition-all">
                             {item.description}
                         </p>
                     </div>

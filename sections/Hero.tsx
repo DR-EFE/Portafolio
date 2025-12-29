@@ -12,6 +12,10 @@ declare global {
       ambientLight: any;
       directionalLight: any;
       group: any;
+      primitive: any;
+      mesh: any;
+      bufferGeometry: any;
+      meshStandardMaterial: any;
     }
   }
 }
@@ -68,7 +72,7 @@ const TechSphere = () => {
     <Float speed={2} rotationIntensity={1} floatIntensity={1}>
         <Sphere args={[1, 100, 200]} scale={2.4} ref={meshRef}>
             <MeshDistortMaterial
-                color="#00f3ff"
+                color={document.documentElement.classList.contains('dark') ? "#818cf8" : "#4f46e5"}
                 attach="material"
                 distort={0.4}
                 speed={1.5}
@@ -109,16 +113,16 @@ const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
                    &lt;Hello_World /&gt;
                 </h2>
                 
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                <h1 className="text-5xl md:text-7xl font-bold text-text mb-6 leading-tight">
                     I am <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-secondary">
                       {heroContent.name}
                     </span>
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-muted mt-5 max-w-lg font-light h-[60px]">
                     <span className="text-primary mr-2">const role =</span>
-                    <span className="font-mono text-white">
+                    <span className="font-mono text-text opacity-90">
                          "<Typewriter texts={heroContent.typedRoles} />"
                     </span>
                 </p>
@@ -132,7 +136,7 @@ const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
             >
                 <a 
                     href="#portfolio"
-                    className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/50 px-8 py-3 rounded-sm font-mono transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,243,255,0.3)]"
+                    className="bg-primary text-white hover:bg-primary/90 px-8 py-3 rounded-md font-semibold transition-all duration-300 shadow-premium hover:shadow-premium-hover hover:-translate-y-1 block text-center"
                 >
                     VIEW WORK
                 </a>
@@ -142,11 +146,11 @@ const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
                       onClick={() => onPlayVideo(heroContent.video.url)} 
                       className="flex items-center gap-4 group"
                   >
-                      <div className="relative flex items-center justify-center w-12 h-12 rounded-full border border-white/20 group-hover:border-primary transition-colors">
+                      <div className="relative flex items-center justify-center w-12 h-12 rounded-full border border-border group-hover:border-primary transition-colors bg-surface/50 backdrop-blur-sm">
                           <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-0 group-hover:opacity-100" />
-                          <Play className="w-4 h-4 text-white group-hover:text-primary fill-current ml-1" />
+                          <Play className="w-4 h-4 text-primary group-hover:scale-110 transition-transform fill-current ml-1" />
                       </div>
-                      <span className="text-muted group-hover:text-white transition-colors text-sm font-mono tracking-wider">
+                      <span className="text-muted group-hover:text-text transition-colors text-sm font-mono tracking-wider">
                           INTRO_VIDEO
                       </span>
                   </button>
@@ -158,7 +162,7 @@ const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
       {/* Scroll indicator */}
       <div className="absolute bottom-10 w-full flex justify-center items-center z-10">
         <a href="#about">
-          <div className="w-[30px] h-[55px] rounded-3xl border-2 border-white/20 flex justify-center items-start p-2">
+          <div className="w-[30px] h-[55px] rounded-3xl border-2 border-border flex justify-center items-start p-2 bg-surface/30 backdrop-blur-sm">
             <motion.div
               animate={{
                 y: [0, 20, 0],
