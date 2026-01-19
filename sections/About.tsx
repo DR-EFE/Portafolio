@@ -2,18 +2,39 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
 import { aboutContent } from '../data/content';
-import { ArrowRight, ExternalLink, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, ExternalLink, ShieldCheck } from 'lucide-react';
+import ShinyText from '../components/ShinyTextProps';
 
 const About = () => {
+  // 1. Definimos las variantes para los contenedores
+  const fadeInRight = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut", delay: 0.2 } // Un pequeño delay para el texto
+    }
+  };
+
   return (
-    <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-32 items-center py-10">
+    <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-32 items-center py-10 overflow-hidden">
       
       {/* Image Section */}
       <motion.div 
         className="w-full lg:w-1/2 relative"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
+        variants={fadeInRight}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }} // Se activa cuando el 30% es visible
       >
         <div className="relative w-full max-w-md mx-auto aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl group border border-border/10">
            <img 
@@ -36,17 +57,22 @@ const About = () => {
            </div>
         </div>
         
-        {/* Decorative Circles */}
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl" />
+        {/* Decorative Circles con animación de pulso extra */}
+        <motion.div 
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 4, repeat: Infinity }}
+          className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl -z-10" 
+        />
+        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl -z-10" />
       </motion.div>
 
       {/* Content Section */}
       <motion.div 
         className="w-full lg:w-1/2"
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
+        variants={fadeInLeft}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
       >
         <div className="mb-8">
            <h3 className="text-primary font-mono text-sm tracking-widest uppercase mb-4">A Bit About Me</h3>
@@ -60,7 +86,11 @@ const About = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
           {aboutContent.highlights.map((item, index) => (
-              <div key={index} className="flex flex-col border-l-2 border-border/20 pl-4 hover:border-primary transition-colors py-2">
+              <motion.div 
+                key={index} 
+                whileHover={{ x: 5 }}
+                className="flex flex-col border-l-2 border-border/20 pl-4 hover:border-primary transition-colors py-2"
+              >
                   <span className="text-xs text-muted font-bold uppercase tracking-wider mb-1">{item.label}</span>
                   {item.href ? (
                        <a href={item.href} target="_blank" rel="noreferrer" className="text-text font-semibold hover:text-primary transition-colors flex items-center gap-2">
@@ -69,13 +99,15 @@ const About = () => {
                   ) : (
                       <span className="text-text font-semibold">{item.value}</span>
                   )}
-              </div>
+              </motion.div>
           ))}
         </div>
 
         <div className="flex flex-wrap gap-6">
           {aboutContent.cta.map((btn, idx) => (
-              <a 
+              <motion.a 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   key={idx}
                   href={btn.href}
                   className={`
@@ -88,7 +120,7 @@ const About = () => {
               >
                   {btn.label}
                   <ArrowRight className="w-5 h-5" />
-              </a>
+              </motion.a>
           ))}
         </div>
       </motion.div>
