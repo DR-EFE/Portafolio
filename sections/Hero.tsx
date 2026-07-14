@@ -283,6 +283,17 @@ const TechSphere: React.FC = () => {
 const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
   const { t } = useLanguage();
   const { theme } = useTheme();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const handleDownloadCV = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     try {
@@ -303,16 +314,19 @@ const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
     }
   };
 
+  const groupPosition: [number, number, number] = isMobile ? [0.9, -1.0, 0] : [1.8, 0, 0];
+  const groupScale = isMobile ? 0.65 : 1;
+
   return (
     <section className="relative w-full h-screen mx-auto overflow-hidden bg-background" id="home">
       
       {/* 3D Background/Sidebar */}
-      <div className="absolute inset-0 z-0 opacity-40 md:opacity-100">
+      <div className="absolute inset-0 z-0 opacity-75 md:opacity-100">
         <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
           <ambientLight intensity={theme.three.ambientLightIntensity} />
           <pointLight position={[10, 10, 10]} intensity={theme.three.pointLightIntensity} color={theme.three.pointLightColor} />
           <directionalLight position={[2, 2, 5]} intensity={theme.three.directionalLightIntensity} />
-          <group position={[1.8, 0, 0]}> {/* Offset to right on desktop */}
+          <group position={groupPosition} scale={groupScale}> {/* Offset & Scale dynamically for mobile vs desktop */}
              <TechSphere />
           </group>
         </Canvas>
