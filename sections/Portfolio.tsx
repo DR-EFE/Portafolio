@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
 import { useLanguage } from '../context/LanguageContext';
@@ -30,6 +30,17 @@ const itemVariants = {
 };
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // 3D Tilt Logic
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -41,7 +52,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (isMobile || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -66,23 +77,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   const privateLabel = isEs ? 'Proyecto Privado' : 'Private Project';
   const appLabel = isEs ? 'Página de App' : 'App Page';
 
+  const cardStyle = isMobile 
+    ? {} 
+    : { transformStyle: 'preserve-3d' as const, transform };
+
   return (
     <motion.div
       variants={itemVariants}
-      className="relative w-full h-full perspective-1000"
+      className="relative w-full h-auto md:h-full perspective-1000"
     >
       <motion.div
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ transformStyle: 'preserve-3d', transform }}
-        className="relative bg-card rounded-xl overflow-hidden border border-border/10 hover:border-primary/50 transition-colors group h-full flex flex-col shadow-xl dark:shadow-none"
+        style={cardStyle}
+        className="relative bg-card rounded-xl overflow-hidden border border-border/10 hover:border-primary/50 transition-colors group h-auto md:h-full flex flex-col shadow-xl dark:shadow-none"
       >
         {/* Glow Effect */}
         <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none" />
 
         {/* Image */}
-        <div className="relative h-[220px] overflow-hidden w-full">
+        <div className="relative h-[200px] sm:h-[220px] overflow-hidden w-full">
             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
             <img 
                 src={project.image} 
@@ -106,8 +121,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                 )}
             </div>
 
-            {/* Overlay Links */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-black/80 backdrop-blur-sm p-4 text-center">
+            {/* Overlay Links (Visible and interactive only on desktop/hover) */}
+            <div className="absolute inset-0 hidden md:flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-black/80 backdrop-blur-sm p-4 text-center">
                 {project.isPrivate ? (
                     <div className="flex flex-col items-center gap-1 text-white">
                         <div className="p-2 bg-white/10 rounded-full border border-white/20 mb-1">
@@ -165,6 +180,51 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                     </span>
                 ))}
             </div>
+
+            {/* Mobile Actions (Visible only on mobile/touch screens instead of hover overlay) */}
+            <div className="mt-5 pt-4 border-t border-border/10 flex items-center justify-between md:hidden w-full z-30">
+              {project.isPrivate ? (
+                <div className="flex flex-col items-start gap-1 w-full text-left">
+                  <div className="flex items-center gap-1.5 text-amber-500 font-mono text-[11px] font-bold uppercase tracking-wider">
+                    <Lock className="w-3.5 h-3.5" />
+                    <span>{isEs ? 'Código y Demo Privados' : 'Code & Demo Private'}</span>
+                  </div>
+                  <span className="text-[10px] text-muted">
+                    {isEs ? 'Propiedad intelectual resguardada.' : 'Intellectual property protected.'}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-[11px] font-mono text-muted uppercase tracking-wider">{isEs ? 'Enlaces' : 'Links'}</span>
+                  <div className="flex gap-4">
+                    {project.github && project.github !== '#' && (
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-mono text-primary hover:text-text bg-primary/10 px-2.5 py-1.5 rounded border border-primary/20 transition-all"
+                        aria-label={isEs ? 'Ver Código' : 'View Code'}
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>{isEs ? 'Código' : 'Code'}</span>
+                      </a>
+                    )}
+                    {project.link && project.link !== '#' && (
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="flex items-center gap-1.5 text-xs font-mono text-primary hover:text-text bg-primary/10 px-2.5 py-1.5 rounded border border-primary/20 transition-all"
+                        aria-label={project.isAppDownload ? (isEs ? 'Ver Página' : 'View App Page') : (isEs ? 'Ver Demo' : 'View Demo')}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>{project.isAppDownload ? (isEs ? 'App' : 'App') : (isEs ? 'Demo' : 'Demo')}</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
         </div>
 
       </motion.div>
@@ -193,7 +253,7 @@ const Portfolio = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
+        viewport={{ once: true, amount: 0.05 }}
       >
         {t.projects.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />
