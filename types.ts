@@ -12,6 +12,8 @@ export interface Project {
   tech: string[];
   link: string;
   github: string;
+  isPrivate?: boolean;
+  isAppDownload?: boolean;
 }
 
 export interface VideoModalState {
@@ -56,6 +58,7 @@ export interface Certificate {
   title: string;
   issuer: string;
   description: string;
+  url?: string;
 }
 
 export interface Skill {
@@ -68,9 +71,4 @@ export interface Service {
   icon: string;
   title: string;
   description: string;
-}
-
-export interface Technology {
-  name: string;
-  icon: string;
 }

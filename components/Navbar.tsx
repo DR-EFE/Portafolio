@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { navLinks } from '../data/content';
-import { Menu, X, Code2, Sun, Moon } from 'lucide-react';
+import { Menu, X, Code2, Sun, Moon, Languages } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 interface NavbarProps {
   activeSection: string;
@@ -10,6 +10,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ activeSection, toggleTheme, isDarkMode }) => {
+  const { t, toggleLanguage } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -90,6 +91,15 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, toggleTheme, isDarkMode 
 
           {/* Right Actions */}
           <div className="flex items-center gap-4 z-50">
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="p-2 rounded-full hover:bg-surface/20 transition-colors text-text border border-transparent hover:border-border/20"
+              aria-label="Toggle Language"
+            >
+              <Languages className="w-5 h-5" />
+            </button>
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -105,7 +115,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, toggleTheme, isDarkMode 
               className="text-text focus:outline-none p-2 rounded-full hover:bg-surface/20 transition-colors group flex items-center gap-3 border border-transparent hover:border-border/20"
             >
               <span className="hidden md:block font-mono text-xs tracking-widest uppercase text-muted group-hover:text-text transition-colors">
-                {isOpen ? 'Close' : 'Menu'}
+                {isOpen ? t.ui.close : t.ui.menu}
               </span>
               <div className={`relative w-8 h-8 flex items-center justify-center transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`}>
                 {isOpen ? <X className="w-6 h-6 text-primary" /> : <Menu className="w-6 h-6" />}
@@ -133,7 +143,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, toggleTheme, isDarkMode 
             </div>
 
             <ul className="list-none flex flex-col gap-6 md:gap-8 items-center justify-center relative z-10 w-full">
-              {navLinks.map((link, index) => (
+              {t.navLinks.map((link, index) => (
                 <motion.li
                   key={link.id}
                   custom={index}

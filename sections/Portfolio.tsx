@@ -1,14 +1,33 @@
 import React, { useRef } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
-import { projects } from '../data/content';
-import { ExternalLink, Github, Code } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { ExternalLink, Github, Code, Lock, Smartphone } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectCardProps {
   project: Project;
   index: number;
 }
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   // 3D Tilt Logic
@@ -42,11 +61,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     y.set(0);
   };
 
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+  const privateLabel = isEs ? 'Proyecto Privado' : 'Private Project';
+  const appLabel = isEs ? 'Página de App' : 'App Page';
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      variants={itemVariants}
       className="relative w-full h-full perspective-1000"
     >
       <motion.div
@@ -54,7 +76,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ transformStyle: 'preserve-3d', transform }}
-        className="relative bg-card rounded-xl overflow-hidden border border-border/50 hover:border-primary/50 transition-colors group h-full flex flex-col shadow-premium hover:shadow-premium-hover"
+        className="relative bg-card rounded-xl overflow-hidden border border-border/10 hover:border-primary/50 transition-colors group h-full flex flex-col shadow-xl dark:shadow-none"
       >
         {/* Glow Effect */}
         <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none" />
@@ -68,14 +90,62 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             
+            {/* Badges */}
+            <div className="absolute top-3 left-3 z-20 flex flex-col gap-1.5">
+                {project.isPrivate && (
+                    <span className="flex items-center gap-1 text-[10px] font-mono uppercase bg-amber-500/95 text-black font-extrabold px-2 py-0.5 rounded border border-amber-400 shadow-md">
+                        <Lock className="w-3 h-3" />
+                        {privateLabel}
+                    </span>
+                )}
+                {project.isAppDownload && (
+                    <span className="flex items-center gap-1 text-[10px] font-mono uppercase bg-purple-500/95 text-white font-extrabold px-2 py-0.5 rounded border border-purple-400 shadow-md">
+                        <Smartphone className="w-3 h-3" />
+                        {appLabel}
+                    </span>
+                )}
+            </div>
+
             {/* Overlay Links */}
-            <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-background/80 backdrop-blur-sm">
-                <a href={project.github} className="p-3 bg-surface rounded-full hover:bg-primary text-text hover:text-white border border-border transition-all transform hover:scale-110 shadow-sm">
-                    <Github className="w-5 h-5" />
-                </a>
-                <a href={project.link} className="p-3 bg-surface rounded-full hover:bg-primary text-text hover:text-white border border-border transition-all transform hover:scale-110 shadow-sm">
-                    <ExternalLink className="w-5 h-5" />
-                </a>
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 bg-black/80 backdrop-blur-sm p-4 text-center">
+                {project.isPrivate ? (
+                    <div className="flex flex-col items-center gap-1 text-white">
+                        <div className="p-2 bg-white/10 rounded-full border border-white/20 mb-1">
+                            <Lock className="w-5 h-5 text-amber-400" />
+                        </div>
+                        <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-amber-300">
+                            {isEs ? 'Código y Demo Privados' : 'Code & Demo Private'}
+                        </span>
+                        <p className="text-[10px] text-white/70 max-w-[200px]">
+                            {isEs ? 'Propiedad intelectual protegida y resguardada por el cliente.' : 'Protected intellectual property and codebase restricted by client.'}
+                        </p>
+                    </div>
+                ) : (
+                    <div className="flex items-center gap-4">
+                        {project.github && project.github !== '#' && (
+                            <a 
+                                href={project.github} 
+                                target="_blank" 
+                                rel="noreferrer"
+                                className="p-3 bg-surface rounded-full hover:bg-primary dark:hover:text-black hover:text-white text-text transition-all transform hover:scale-110 flex items-center justify-center"
+                                title={isEs ? 'Ver Código' : 'View Code'}
+                            >
+                                <Github className="w-5 h-5" />
+                            </a>
+                        )}
+                        {project.link && project.link !== '#' && (
+                            <a 
+                                href={project.link} 
+                                target="_blank" 
+                                rel="noreferrer"
+                                className="p-3 bg-surface rounded-full hover:bg-primary dark:hover:text-black hover:text-white text-text transition-all transform hover:scale-110 flex items-center justify-center"
+                                title={project.isAppDownload ? (isEs ? 'Ver Página / Descarga' : 'View App Landing') : (isEs ? 'Ver Demo en Vivo' : 'View Live Demo')}
+                            >
+                                <ExternalLink className="w-5 h-5" />
+                            </a>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
 
@@ -103,6 +173,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 };
 
 const Portfolio = () => {
+  const { t } = useLanguage();
   return (
     <>
       <motion.div 
@@ -110,19 +181,24 @@ const Portfolio = () => {
         whileInView={{ opacity: 1 }}
         className="mb-12"
       >
-        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">My Work</p>
+        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">{t.ui.my} {t.ui.portfolio}</p>
         <h2 className="text-4xl md:text-5xl font-bold text-text mb-6">Projects.</h2>
         <p className="text-muted max-w-2xl text-[17px] leading-[30px]">
-          Following projects showcases my skills and experience through real-world examples of my work. 
-          Each project is briefly described with links to code repositories and live demos.
+          {t.ui.portfolioSubtitle}
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+      >
+        {t.projects.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />
         ))}
-      </div>
+      </motion.div>
     </>
   );
 };

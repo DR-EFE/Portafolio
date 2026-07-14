@@ -1,5 +1,5 @@
 
-import { NavLink, Project, HeroContent, AboutContent, TimelineItem, Certificate, Skill, Service, Technology } from '../types';
+import { NavLink, Project, HeroContent, AboutContent, TimelineItem, Certificate, Skill, Service } from '../types';
 
 export const navLinks: NavLink[] = [
   { id: 'home', label: 'Home' },
@@ -9,7 +9,6 @@ export const navLinks: NavLink[] = [
   { id: 'skill', label: 'Skills' },
   { id: 'service', label: 'Services' },
   { id: 'portfolio', label: 'Portfolio' },
-  { id: 'technologies', label: 'Technologies' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -27,12 +26,12 @@ export const aboutContent: AboutContent = {
   image: 'https://picsum.photos/id/1/800/1000',
   headline: 'Multi-platform Developer & Cybersecurity Enthusiast',
   description:
-    'Computer Science Engineering student focused on cross-platform development and cybersecurity. I seek to optimize processes and strengthen skills in challenging teams, with the goal of leading innovative projects. I have experience in developing and implementing CRM systems, which increased the efficiency of the sales team by 20% through task automation.',
+    'Informatics Engineer specialized in mobile and web development, with a strong vocation for clean code and continuous improvement. My approach combines technical quality with an understanding of business needs to deliver products that make a difference.',
   highlights: [
     { label: 'Name', value: 'Felipe Ramos Velazquez' },
     { label: 'Location', value: 'Mexico City, MX' },
-    { label: 'Experience', value: '1+ Year' },
-    { label: 'Phone', value: '961 761 6748' },
+    { label: 'Experience', value: '2+ Years' },
+    { label: 'Phone', value: '221 957 07 59' },
     { label: 'Email', value: 'felipe100rv@gmail.com' },
     {
       label: 'LinkedIn',
@@ -66,9 +65,23 @@ export const educationTimeline: TimelineItem[] = [
 
 export const experienceTimeline: TimelineItem[] = [
   {
+    title: 'Trainee',
+    place: 'Truper',
+    period: '2026 - Present',
+    description:
+      'Contributed to the improvement and optimization of two strategic platforms at Truper (PMM and multi-supplier comparative system), streamlining processes and centralizing information for the Matrices area.',
+  },
+  {
+    title: 'Web Integration Lead',
+    place: 'ContBit',
+    period: '2025 - 2026',
+    description:
+      'Led the integration of web projects with Zoho One, designing automations that connected isolated systems, reducing manual intervention and improving data consistency across the organization.',
+  },
+  {
     title: 'Software Developer Consultant',
     place: 'EMTIX',
-    period: '2025 - Present',
+    period: '2024 - 2025',
     description:
       'Collaborated on multiple high-impact projects, including the development of a comprehensive monitoring system for the C2 security cameras of the Benito Juárez municipality.',
   },
@@ -82,6 +95,13 @@ export const experienceTimeline: TimelineItem[] = [
 ];
 
 export const certificateList: Certificate[] = [
+  {
+    icon: 'fa-github',
+    title: 'GitHub Universe 2023 Cloud Skills Challenge',
+    issuer: 'Academia Red · 2023',
+    description: 'Completed the cloud skills challenge.',
+    url: 'https://learn.microsoft.com/es-es/users/feliperamos-4284/achievements/hyekcpl8?ref=https%3A%2F%2Fwww.canva.com%2F'
+  },
   {
     icon: 'fa-network-wired',
     title: 'Networking Basics',
@@ -137,7 +157,7 @@ export const projects: Project[] = [
     id: 1,
     title: "C2 Security Monitor",
     category: "Government/Security",
-    image: "https://picsum.photos/id/1015/800/600",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
     description: "Monitoring system for security cameras in Benito Juárez municipality.",
     tech: ["React", "WebSockets", "Maps API"],
     link: "#",
@@ -147,7 +167,7 @@ export const projects: Project[] = [
     id: 2,
     title: "Corporate CRM",
     category: "Business",
-    image: "https://picsum.photos/id/1033/800/600",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
     description: "Custom CRM for sales automation, increasing efficiency by 20%.",
     tech: ["PHP", "MySQL", "JavaScript"],
     link: "#",
@@ -157,23 +177,10 @@ export const projects: Project[] = [
     id: 3,
     title: "Kotlin App Suite",
     category: "Mobile",
-    image: "https://picsum.photos/id/1025/800/600",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop",
     description: "Suite of mobile tools using Kotlin Multiplatform for shared logic.",
     tech: ["Kotlin", "Android Studio", "Firebase"],
     link: "#",
     github: "#"
   }
-];
-
-export const technologies: Technology[] = [
-  { name: 'Windows', icon: 'fab fa-windows' },
-  { name: 'Visual Studio Code', icon: 'fas fa-code' },
-  { name: 'Git & GitHub', icon: 'fab fa-github' },
-  { name: 'Android Studio', icon: 'fab fa-android' },
-  { name: 'IntelliJ IDEA', icon: 'fas fa-lightbulb' },
-  { name: 'Figma', icon: 'fab fa-figma' },
-  { name: 'Trello', icon: 'fab fa-trello' },
-  { name: 'Docker', icon: 'fab fa-docker' },
-  { name: 'Postman', icon: 'fas fa-rocket' },
-  { name: 'Azure', icon: 'fab fa-microsoft' },
 ];

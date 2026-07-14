@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
-import { skills } from '../data/content';
+import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { 
   Database, 
   GitBranch, 
@@ -27,15 +28,26 @@ const getSkillIcon = (label: string) => {
   return Code2; // Default
 };
 
-const getColorHex = (twClass: string) => {
-  if (twClass.includes('blue')) return '#3b82f6';
-  if (twClass.includes('yellow')) return '#eab308';
-  if (twClass.includes('gray')) return '#374151'; 
-  if (twClass.includes('red')) return '#ef4444';
-  if (twClass.includes('cyan')) return '#06b6d4';
-  if (twClass.includes('green')) return '#22c55e';
-  if (twClass.includes('primary')) return '#4f46e5';
-  return '#4f46e5'; 
+const getColorHex = (twClass: string, themeHex: string, isDarkMode: boolean) => {
+  if (twClass.includes('primary')) return themeHex;
+  if (isDarkMode) {
+    if (twClass.includes('blue')) return '#3b82f6';
+    if (twClass.includes('yellow')) return '#eab308';
+    if (twClass.includes('gray')) return '#374151'; 
+    if (twClass.includes('red')) return '#ef4444';
+    if (twClass.includes('cyan')) return '#06b6d4';
+    if (twClass.includes('green')) return '#22c55e';
+    return themeHex;
+  } else {
+    // Light mode high-contrast values for readability against white backgrounds
+    if (twClass.includes('blue')) return '#1d4ed8'; // blue-700
+    if (twClass.includes('yellow')) return '#b45309'; // amber-700
+    if (twClass.includes('gray')) return '#374151'; 
+    if (twClass.includes('red')) return '#b91c1c'; // red-700
+    if (twClass.includes('cyan')) return '#0369a1'; // sky-700
+    if (twClass.includes('green')) return '#15803d'; // green-700
+    return themeHex;
+  }
 };
 
 // --- DATA FOR TOOLS CAROUSEL ---
@@ -57,7 +69,8 @@ const tools = [
 
 const SkillHUD: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) => {
   const Icon = getSkillIcon(skill.label);
-  const color = getColorHex(skill.color);
+  const { theme, isDarkMode } = useTheme();
+  const color = getColorHex(skill.color, theme.primary.hex, isDarkMode);
   const radius = 36;
   const circumference = 2 * Math.PI * radius;
   
@@ -80,7 +93,7 @@ const SkillHUD: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) =
           className="absolute inset-0 m-auto rounded-full border-2 border-t-transparent border-b-transparent border-black/5 dark:border-white/5 w-[85%] h-[85%]"
         />
         <svg 
-            className="absolute inset-0 w-full h-full transform -rotate-90 filter dark:drop-shadow-[0_0_8px_rgba(129,140,248,0.2)]"
+            className="absolute inset-0 w-full h-full transform -rotate-90 drop-shadow-[0_0_8px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.05)]"
             viewBox="0 0 128 128"
         >
           <circle cx="64" cy="64" r={radius} fill="transparent" stroke="rgba(128,128,128,0.1)" strokeWidth="6" />
@@ -96,11 +109,10 @@ const SkillHUD: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) =
             initial={{ strokeDashoffset: circumference }}
             whileInView={{ strokeDashoffset: circumference - (skill.value / 100) * circumference }}
             transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-            className="drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className={`p-3 rounded-full bg-surface/50 backdrop-blur-sm border border-border/10 group-hover:border-${skill.color.split('-')[1]}-500/50 transition-colors duration-300 shadow-sm dark:shadow-none`}>
+          <div className="p-3 rounded-full bg-surface/50 backdrop-blur-sm border border-border/10 group-hover:border-primary/50 transition-colors duration-300 shadow-sm dark:shadow-none">
              <Icon className="w-6 h-6 text-text group-hover:text-primary transition-colors duration-300" />
           </div>
         </div>
@@ -136,7 +148,7 @@ const ToolsCarousel = () => {
         `}
       </style>
 
-      <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] bg-surface border-y border-border/50 py-10 shadow-sm">
+      <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] bg-black/5 dark:bg-white/5 border-y border-border/10 py-8">
         <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
           {tools.map((tool, index) => (
             <li key={index} className="mx-8 group relative">
@@ -169,18 +181,19 @@ const ToolsCarousel = () => {
 };
 
 const Skills = () => {
+  const { t } = useLanguage();
   return (
     <>
       <div className="mb-16 text-center max-w-2xl mx-auto">
-        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">My Arsenal</p>
-        <h2 className="text-4xl font-bold text-text mb-6">Technical Skills</h2>
+        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">{t.ui.my}</p>
+        <h2 className="text-4xl font-bold text-text mb-6">{t.ui.skills}</h2>
         <p className="text-muted">
             Proficiency in modern technologies and tools required for scalable application development.
         </p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 justify-items-center">
-        {skills.map((skill, index) => (
+        {t.skills.map((skill, index) => (
           <SkillHUD key={index} skill={skill} index={index} />
         ))}
       </div>

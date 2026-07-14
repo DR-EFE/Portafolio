@@ -1,5 +1,6 @@
 import React from 'react';
 import SectionWrapper from '../components/SectionWrapper';
+import { useLanguage } from '../context/LanguageContext';
 
 // Remaining placeholders
 const PlaceholderContent = ({ title }: { title: string }) => (
@@ -13,8 +14,11 @@ const PlaceholderContent = ({ title }: { title: string }) => (
 
 export const Blog = SectionWrapper(() => <PlaceholderContent title="Latest Articles" />, "blog");
 
-export const Footer = () => (
-    <footer className="w-full py-6 bg-surface border-t border-border/10 text-center">
-        <p className="text-muted font-mono text-sm">© {new Date().getFullYear()} Felipe Ramos. Crafted with React & Tailwind.</p>
-    </footer>
-);
+export const Footer = () => {
+    const { t } = useLanguage();
+    return (
+        <footer className="w-full py-6 bg-surface border-t border-border/10 text-center">
+            <p className="text-muted font-mono text-sm">© {new Date().getFullYear()} Felipe Ramos. {t.ui.rights}</p>
+        </footer>
+    );
+};

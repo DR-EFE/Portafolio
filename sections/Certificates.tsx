@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
-import { certificateList } from '../data/content';
-import { Shield, Award, Laptop, Code2, Smartphone, Network } from 'lucide-react';
+import { Shield, Award, Laptop, Code2, Smartphone, Network, Github } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 // Simple mapping for string icons to Lucide components
 const IconMap: { [key: string]: any } = {
@@ -11,19 +11,21 @@ const IconMap: { [key: string]: any } = {
   'fa-shield-alt': Shield,
   'fab fa-android': Smartphone,
   'fa-network-wired': Network,
+  'fa-github': Github,
   'default': Code2
 };
 
 const Certificates = () => {
+  const { t } = useLanguage();
   return (
     <>
       <div className="mb-12">
-        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">Achievements</p>
-        <h2 className="text-4xl font-bold text-text">Certifications.</h2>
+        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">{t.ui.my}</p>
+        <h2 className="text-4xl font-bold text-text">{t.ui.certificates}.</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {certificateList.map((cert, index) => {
+        {t.certificateList.map((cert, index) => {
           const IconComponent = IconMap[cert.icon] || IconMap['default'];
           
           return (
@@ -33,8 +35,13 @@ const Certificates = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -5 }}
-              className="p-6 rounded-xl bg-card border border-border/10 hover:border-primary/40 transition-all duration-300 group hover:shadow-[0_5px_20px_rgba(var(--primary),0.1)] h-full flex flex-col shadow-md dark:shadow-none"
+              className="p-6 rounded-xl bg-card border border-border/10 hover:border-primary/40 transition-all duration-300 group hover:shadow-[0_5px_20px_rgba(var(--primary),0.1)] h-full flex flex-col shadow-md dark:shadow-none relative"
             >
+              {cert.url && (
+                <a href={cert.url} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-10">
+                  <span className="sr-only">View {cert.title}</span>
+                </a>
+              )}
               <div className="w-12 h-12 bg-surface rounded-lg flex items-center justify-center mb-4 border border-border/10 group-hover:border-primary transition-colors shrink-0">
                  <IconComponent className="w-6 h-6 text-text group-hover:text-primary transition-colors" />
               </div>

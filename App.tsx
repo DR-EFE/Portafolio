@@ -12,40 +12,20 @@ import Certificates from './sections/Certificates';
 import Skills from './sections/Skills';
 import Services from './sections/Services';
 import Portfolio from './sections/Portfolio';
-import Technologies from './sections/Technologies';
 import Contact from './sections/Contact';
 import { useScrollSpy } from './hooks/useScrollSpy';
-import { navLinks } from './data/content';
+import { useLanguage } from './context/LanguageContext';
+import { useTheme } from './context/ThemeContext';
 import { Blog, Footer } from './sections/Placeholders';
 
 const App = () => {
-  const sectionIds = navLinks.map((link) => link.id);
+  const { t } = useLanguage();
+  const { isDarkMode, toggleTheme } = useTheme();
+  const sectionIds = t.navLinks.map((link) => link.id);
   const activeSection = useScrollSpy(sectionIds);
   const [videoModal, setVideoModal] = useState<{ isOpen: boolean; src: string }>({ isOpen: false, src: '' });
   const [showIntro, setShowIntro] = useState(true);
   
-  // Theme State
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      return savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
-    return true; // Default to dark
-  });
-
-  useEffect(() => {
-    const html = document.documentElement;
-    if (isDarkMode) {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
-
-  const toggleTheme = () => setIsDarkMode(!isDarkMode);
-
   // Optional: Prevent scrolling while intro is visible
   useEffect(() => {
     if (showIntro) {
@@ -80,8 +60,7 @@ const App = () => {
         <Skills />
         <Services />
         <Portfolio />
-        <Blog />
-        <Technologies />
+       
         <Contact />
       </main>
       

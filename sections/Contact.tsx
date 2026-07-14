@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
 import { Send, Loader2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -39,10 +41,10 @@ const Contact = () => {
   return (
     <>
       <div className="mb-16 text-center max-w-2xl mx-auto">
-        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">Get In Touch</p>
-        <h2 className="text-4xl font-bold text-text mb-6">Contact Me.</h2>
+        <p className="text-primary font-mono text-sm tracking-widest mb-2 uppercase">{t.ui.getInTouch}</p>
+        <h2 className="text-4xl font-bold text-text mb-6">{t.ui.contact}.</h2>
         <p className="text-muted">
-          Have a project in mind or just want to say hi? My inbox is always open.
+          {t.ui.contactSubtitle}
         </p>
       </div>
 
@@ -64,21 +66,21 @@ const Contact = () => {
                         <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mb-4">
                             <Send className="w-8 h-8 text-green-500" />
                         </div>
-                        <h3 className="text-2xl font-bold text-text mb-2">Message Sent!</h3>
-                        <p className="text-muted">Thanks for reaching out. I'll get back to you soon.</p>
+                        <h3 className="text-2xl font-bold text-text mb-2">{t.ui.messageSent}</h3>
+                        <p className="text-muted">{t.ui.messageSentDesc}</p>
                         <button 
                             type="button" 
                             onClick={() => setIsSuccess(false)}
                             className="mt-6 px-6 py-2 bg-surface border border-border/20 rounded text-sm hover:border-primary/50 transition-colors"
                         >
-                            Send Another
+                            {t.ui.sendAnother}
                         </button>
                     </motion.div>
                 ) : null}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="name" className="text-sm font-mono text-muted">Name</label>
+                        <label htmlFor="name" className="text-sm font-mono text-muted">{t.ui.nameLabel}</label>
                         <input 
                             type="text" 
                             id="name" 
@@ -86,12 +88,12 @@ const Contact = () => {
                             required
                             value={formState.name}
                             onChange={handleChange}
-                            placeholder="John Doe"
+                            placeholder={t.ui.namePlaceholder}
                             className="bg-black/5 dark:bg-white/5 border border-border/20 rounded-lg p-3 text-text placeholder:text-muted/30 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                         />
                     </div>
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="email" className="text-sm font-mono text-muted">Email</label>
+                        <label htmlFor="email" className="text-sm font-mono text-muted">{t.ui.emailLabel}</label>
                         <input 
                             type="email" 
                             id="email" 
@@ -99,14 +101,14 @@ const Contact = () => {
                             required
                             value={formState.email}
                             onChange={handleChange}
-                            placeholder="john@example.com"
+                            placeholder={t.ui.emailPlaceholder}
                             className="bg-black/5 dark:bg-white/5 border border-border/20 rounded-lg p-3 text-text placeholder:text-muted/30 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                         />
                     </div>
                 </div>
 
                 <div className="flex flex-col gap-2 mb-8">
-                    <label htmlFor="message" className="text-sm font-mono text-muted">Message</label>
+                    <label htmlFor="message" className="text-sm font-mono text-muted">{t.ui.messageLabel}</label>
                     <textarea 
                         id="message" 
                         name="message" 
@@ -114,7 +116,7 @@ const Contact = () => {
                         value={formState.message}
                         onChange={handleChange}
                         rows={6}
-                        placeholder="What's on your mind?"
+                        placeholder={t.ui.messagePlaceholder}
                         className="bg-black/5 dark:bg-white/5 border border-border/20 rounded-lg p-3 text-text placeholder:text-muted/30 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"
                     />
                 </div>
@@ -122,16 +124,16 @@ const Contact = () => {
                 <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full md:w-auto px-8 py-3 bg-primary text-black font-bold rounded-lg hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-[0_0_15px_rgba(var(--primary),0.5)] mx-auto"
+                    className="w-full md:w-auto px-8 py-3 bg-primary dark:text-black text-white font-bold rounded-lg hover:bg-text hover:text-background dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-[0_0_15px_rgba(var(--primary),0.5)] mx-auto"
                 >
                     {isSubmitting ? (
                         <>
                             <Loader2 className="w-5 h-5 animate-spin" />
-                            Sending...
+                            {t.ui.sending}
                         </>
                     ) : (
                         <>
-                            Send Message
+                            {t.ui.sendMessage}
                             <Send className="w-4 h-4" />
                         </>
                     )}
