@@ -80,6 +80,7 @@ export const en: TranslationData = {
       { label: 'Name', value: 'Felipe Ramos Velazquez' },
       { label: 'Location', value: 'Mexico City, MX' },
       { label: 'Experience', value: '2+ Years' },
+      { label: 'English', value: 'B1 Intermediate' },
       { label: 'Phone', value: '221 957 07 59' },
       { label: 'Email', value: 'felipe100rv@gmail.com' },
       { label: 'LinkedIn', value: 'felipe-ramos-098301249', href: 'https://linkedin.com/in/felipe-ramos-098301249' },
@@ -144,6 +145,7 @@ export const en: TranslationData = {
       title: 'Networking Basics',
       issuer: 'Cisco Networking Academy · Jun 2024',
       description: 'Proficient in network communication concepts, protocols, Ethernet, IPv4/IPv6 addressing, and troubleshooting.',
+      url: 'https://drive.google.com/file/d/1WtajhGsAGh78gEs_-pxIU-CXXHrspP_1/view?usp=sharing'
     },
     {
       icon: 'fa-shield-alt',
@@ -156,6 +158,14 @@ export const en: TranslationData = {
       title: 'Oracle Next Education Back-end',
       issuer: 'Alura Latam · Jun 2023',
       description: 'Specialized in Java Spring Boot and Backend architecture.',
+      url: 'https://app.aluracursos.com/program/certificate/9794193e-6a24-423d-86bd-4be54c98c72b'
+    },
+    {
+      icon: 'fa-python',
+      title: 'Python for Data Science',
+      issuer: 'Alura Latam',
+      description: 'Acquired foundational skills in Python applied to Data Science.',
+      url: 'https://app.aluracursos.com/certificate/643ddd4e-31e6-40f2-86be-e1727ef0d815'
     },
   ],
   skills: [
@@ -317,20 +327,21 @@ export const es: TranslationData = {
   heroContent: {
     name: 'Felipe Ramos',
     typedRoles: ['Diseñador Web', 'Desarrollador Web', 'Desarrollador Front End', 'Diseñador de Apps', 'Desarrollador de Apps'],
-    profileImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop',
+    profileImage: 'https://i.pinimg.com/736x/5a/aa/7a/5aaa7ae1334977e3bd9e1d444b3c9d71.jpg',
     cvLink: '#contact',
     video: {
       url: 'https://www.youtube.com/embed/DWRcNpR6Kdc',
     },
   },
   aboutContent: {
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop',
+    image: 'https://i.pinimg.com/736x/5a/aa/7a/5aaa7ae1334977e3bd9e1d444b3c9d71.jpg',
     headline: 'Desarrollador Multiplataforma y Entusiasta de Ciberseguridad',
     description: 'Ingeniero en Informática especializado en desarrollo móvil y web, con una fuerte vocación por el código limpio y la mejora continua. Mi enfoque combina la calidad técnica con la comprensión de las necesidades del negocio para entregar productos que marquen la diferencia.',
     highlights: [
       { label: 'Nombre', value: 'Felipe Ramos Velazquez' },
       { label: 'Ubicación', value: 'Ciudad de México, MX' },
       { label: 'Experiencia', value: '2+ Años' },
+      { label: 'Inglés', value: 'B1 Intermedio' },
       { label: 'Teléfono', value: '221 957 07 59' },
       { label: 'Email', value: 'felipe100rv@gmail.com' },
       { label: 'LinkedIn', value: 'felipe-ramos-098301249', href: 'https://linkedin.com/in/felipe-ramos-098301249' },
@@ -395,6 +406,7 @@ export const es: TranslationData = {
       title: 'Conceptos Básicos de Redes',
       issuer: 'Cisco Networking Academy · Jun 2024',
       description: 'Competente en conceptos de comunicación de redes, protocolos, Ethernet, direccionamiento IPv4/IPv6 y solución de problemas.',
+      url: 'https://drive.google.com/file/d/1WtajhGsAGh78gEs_-pxIU-CXXHrspP_1/view?usp=sharing'
     },
     {
       icon: 'fa-shield-alt',
@@ -407,6 +419,14 @@ export const es: TranslationData = {
       title: 'Oracle Next Education Back-end',
       issuer: 'Alura Latam · Jun 2023',
       description: 'Especializado en arquitectura Backend y Java Spring Boot.',
+      url: 'https://app.aluracursos.com/program/certificate/9794193e-6a24-423d-86bd-4be54c98c72b'
+    },
+    {
+      icon: 'fa-python',
+      title: 'Python para Data Science',
+      issuer: 'Alura Latam',
+      description: 'Habilidades fundamentales en Python aplicado a la Ciencia de Datos.',
+      url: 'https://app.aluracursos.com/certificate/643ddd4e-31e6-40f2-86be-e1727ef0d815'
     },
   ],
   skills: [

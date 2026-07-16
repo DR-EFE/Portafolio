@@ -314,8 +314,8 @@ const Hero: React.FC<HeroProps> = ({ onPlayVideo }) => {
     }
   };
 
-  const groupPosition: [number, number, number] = isMobile ? [0.9, -1.0, 0] : [1.8, 0, 0];
-  const groupScale = isMobile ? 0.65 : 1;
+  const groupPosition: [number, number, number] = isMobile ? [1.2, -1.2, 0] : [1.8, 0, 0];
+  const groupScale = isMobile ? 0.55 : 1;
 
   return (
     <section className="relative w-full h-screen mx-auto overflow-hidden bg-background" id="home">
